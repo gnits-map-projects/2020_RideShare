@@ -1,28 +1,17 @@
 import React, { Component } from "react";
-import logo from './home.jpeg'
-import './home.css'
-import './styles.css'
+//import logo from './components/images/home.jpeg';
+//import './components/images/bgimage.css';
+//import '../home/home.css';
+import Nav from './nav.js';
 
 export default class complaint extends Component {
     render() {
         return (
             <div class="wrapper">
-                <div class="sidebar">
-                    <h2>CITIZENS ENGAGE</h2>
-                    <ul>
-                        <li><a href="/user-home"><i class="fas fa-home"></i>Home</a></li>
-                        <li><a href="/complaint"><i class="fas fa-user"></i>Register Complaint</a></li>
-                        <li><a href="#"><i class="fas fa-address-card"></i>View Complaints</a></li>
-                        <li><a href="#"><i class="fas fa-project-diagram"></i>Total Complaints</a></li>
-                        <li><a href="#"><i class="fas fa-blog"></i>Pending Complaints</a></li>
-                        <li><a href="#"><i class="fas fa-address-book"></i>Closed Complaints</a></li>
-                        <li><a href="#"><i class="fas fa-map-pin"></i>Logout</a></li>
-                    </ul> 
-        
-                </div>
+                <Nav/>
                 <div class="main_content">
                     <center>
-                    <div class="header">Home Page</div>  
+                    <div class="header"><h2>Complaint Registration</h2></div>  
                     <div class="info">
                     <div className="auth-wrapper">
     <div className="auth-inner">

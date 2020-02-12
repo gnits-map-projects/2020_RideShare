@@ -1,17 +1,10 @@
 import React, { Component } from "react";
 import './UserHome.css'
-//import SignUp from "../components/signup.component";
-//import User from "./components/user"
-/*function Login(prop){
-    const onSubmit =() => {
-        
-        prop.history.push('/User');
-    }*/
-    export default class UserHome extends Component{
+export default class Nav extends Component{
     render() {
         return (
 
-            <div class="wrapper">
+            
                 <div class="sidebar">
                     <h2>CITIZENS ENGAGE</h2>
                     <ul>
@@ -25,16 +18,7 @@ import './UserHome.css'
                     </ul> 
                 
                 </div>
-                <div class="main_content">
-                    <center>
-                    <div class="header">Home Page</div>  
-                    <div class="info"></div>
-                    </center>
-                     
-                    
-                    </div>
-            
-          </div>  
+               
         );
 }
 }
