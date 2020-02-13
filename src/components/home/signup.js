@@ -2,8 +2,8 @@
 
 import React, { Component } from "react";
 import { useHistory, withRouter,Link } from "react-router-dom";
-import '../../home.css';
-import Nav from './Nav.js';
+import './home.css';
+import Navigation from './Nav.js';
 
 var body;
 
@@ -97,15 +97,13 @@ export default class SignUp extends Component {
   }
 
     render() {
-        return (<div>
+        return (<div className ="bg">
             
-            <Nav/>
+            <Navigation/>
 
             <br></br><br/>
             <br/>
-            <br/>
-            <br/>
-            <br/>
+           
 
             <div className="auth-wrapper">
             <div className="auth-inner">

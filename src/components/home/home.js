@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import logo from '../images/home.jpeg';
+import logo from '../images/thumbs-up.jpg';
 import '../images/bgimage.css';
-import '../../home.css';
+import './home.css';
 import Nav from './Nav.js';
 import { useHistory, withRouter,Link } from "react-router-dom";
 

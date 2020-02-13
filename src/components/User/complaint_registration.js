@@ -11,16 +11,17 @@ export default class complaint extends Component {
                 <Nav/>
                 <div class="main_content">
                     <center>
-                    <div class="header"><h2>Complaint Registration</h2></div>  
+                    <div class="header"><b>Complaint Registration</b></div>  
+                    <br/><br/>
                     <div class="info">
                     <div className="auth-wrapper">
     <div className="auth-inner">
     <div>
             {/* <div><Helmet><script src="https://maps.googleapis.com/maps/api/js?&v=3.exp&libraries=geometry,drawing,places"></script></Helmet></div> */}
         
-        
+            
             <form>
-                <h3>Register Complaint</h3>
+
                 <div className="form-group">
                     <label>
                         Category:

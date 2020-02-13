@@ -1,18 +1,13 @@
 import React, { Component } from "react";
 import { useHistory, withRouter,Link } from "react-router-dom";
-import '../../home.css';
-import Nav from './Nav.js';
+import './home.css';
+import Navigation  from './Nav.js';
 import {createBrowserHistory} from 'history';
 
 var body;
 let token="";
 
 class Login extends Component{
-  //   const routeChange = () => {
-  //      //let path = '/UseHome';
-  //      //let history = useHistory();
-  //     props.history.push('/user-home');
-  //  }
   constructor(props) {
     super(props);
     this.state={
@@ -95,11 +90,8 @@ class Login extends Component{
     render() {
         return (<div className="bg">
 
-<Nav/>
+<Navigation/>
             <br></br><br/>
-            <br/>
-            <br/>
-            <br/>
             <br/>
 
             <div className="auth-wrapper">
@@ -120,12 +112,7 @@ class Login extends Component{
                     onChange = {this.handlePasswordChange}/>
                 </div>
 
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                    </div>
-                </div>
+                
 
                 <button type="submit" className="btn btn-primary btn-block" onClick={this.handleSubmit}>Login</button>
                 <p className="forgot-password text-right">
@@ -142,6 +129,7 @@ class Login extends Component{
 
             </form>
             </div>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
             </div>
         );
