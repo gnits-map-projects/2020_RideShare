@@ -92,36 +92,6 @@ class List extends Component {
           </CardActions>
         </Card>
 
-        <Card style={cardStyle}>
-          <CardHeader
-            title="World"//{list.name}
-            subtitle="The best driver"
-            avatar=""
-          />
-          <CardText>
-            <CardTitle title="Origin" subtitle="world"/*{list.origin}*/ />
-            <CardTitle title="Destination" subtitle="world"/*{list.destination} *//>
-          </CardText>
-          <Paper style={style} zDepth={1}>
-            <p>11/02/20  23:00</p>
-          {/*<p>{list.date}  {list.time}</p>*/}
-          </Paper>
-
-          <Paper style={style} zDepth={1}>
-  <p>Vacancy : {4}</p>
-          {/*<p>{list.date}  {list.time}</p>*/}
-          </Paper>
-          {/* list.dateReturn ? (<p>
-              <Divider />
-              <Chip style={cardStyle.chip}>This ride has returning</Chip>
-              <Paper style={style} zDepth={1}>
-                <p>{list.dateReturn}  {list.timeReturn}</p>
-              </Paper>
-          </p>) : (<p/>)*/}
-          <CardActions>
-            <RaisedButton label="Contact!" style={buttonStyle}/>
-          </CardActions>
-        </Card>
       </MuiThemeProvider>
     //)
 
