@@ -7,7 +7,7 @@ import Navigation from './Nav.js';
 
 var body;
 
-export default class SignUp extends Component {
+export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -21,14 +21,15 @@ export default class SignUp extends Component {
     this.state = {
       name: "",
       email:"",
-      password: "",
+      pswd: "",
+      phoneNumber:"",
       //confirmPassword: ""
       
     };
 
   }
   validateForm() {
-    return this.state.username.length > 0 && this.state.password.length > 5 && this.state.password == this.state.confirmPassword;
+    return this.state.name.length > 0 && this.state.pswd.length > 5 && this.state.password == this.state.confirmPassword;
   }
 
   handleNameChange = event => {
@@ -45,30 +46,49 @@ export default class SignUp extends Component {
 
   handlePasswordChange = event => {
     this.setState({
-      password: event.target.value
+      pswd: event.target.value
     });
   }
 
   handleMobileChange = event => {
     this.setState({
-      mobile: event.target.value
+      phoneNumber: event.target.value
     });
   }
 
 
-
   handleSubmit(event) {
+    
     event.preventDefault();
-    body = {
-      Name: this.state.name,
-      Password: this.state.password,
-      Email: this.state.email,
-      Mobile: this.state.mobile,
-     //confirmPassword: this.state.confirmPassword,
+    console.log(this.state)
+     var body = {
+      pswd : this.state.pswd,
+      name : this.state.name,
+      phoneNumber: this.state.phoneNumber,
+      email : this.state.email,
     }
     console.log(body);
+    if(this.state.name==""){
+      alert('Please enter the name')
 
-  const url = "http://localhost:9000/register";
+    }
+  else if(this.state.email==""){
+    alert('Please enter the email')
+}
+else if(this.state.phoneNumber==""){
+  alert('Please enter the phone number')
+}
+else if(this.state.pswd==""){
+  alert('Please enter the password')
+}
+  /*else if(this.state.cpswd!=this.state.pswd){
+      alert('confirm password does not matched')
+    
+      }*/
+    else{
+    
+
+  const url = "http://localhost:9000/person";
     let headers = new Headers();
  
     headers.append('Content-Type','application/json');
@@ -77,7 +97,7 @@ export default class SignUp extends Component {
     headers.append('Access-Control-Allow-origin',url);
     headers.append('Access-Control-Allow-Credentials','true');
  
-    headers.append('GET','POST');
+    headers.append('POST','GET');
  
     fetch(url, {
        headers:headers,
@@ -88,13 +108,15 @@ export default class SignUp extends Component {
     .then(contents => {console.log(contents);
                       
  })
- .catch(()=> console.log("can't access" + url + "response. "))
-//  return (
-//   <Router>
-//  <Route  exact path='/login' component={Loginpage}/>
-//  </Router>
-//  )
+ .catch(()=> console.log("can't access " + url + " response. "))
+
+
+ alert('Details are submitted successful');
+   //this.fun.bind(this);*/
+   this.props.history.push("/login");
+ 
   }
+}
 
     render() {
         return (<div className ="bg">
@@ -136,9 +158,9 @@ export default class SignUp extends Component {
 
                 <div className="form-group">
                     <label>Mobile</label>
-                    <input type="phone" name="mobile" className="form-control" id="examplePhone" 
+                    <input type="phone" name="phoneNumber" className="form-control" id="examplePhone" 
                     placeholder="Enter mobile number"
-                    value = {this.state.mobile}
+                    value = {this.state.phoneNumber}
                     onChange = {this.handleMobileChange} />
                 </div>
 
@@ -147,12 +169,12 @@ export default class SignUp extends Component {
                 <div className="form-group">
                     <label>Password</label>
                     <input type="password"
-                name="password"
+                name="pswd"
                 id="examplePassword"
                 placeholder="********"
                 className="form-control"
                 
-                value = {this.state.password} 
+                value = {this.state.pswd} 
                                     onChange = {this.handlePasswordChange} />
                 </div>
 

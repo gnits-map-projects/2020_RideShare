@@ -11,81 +11,74 @@ class Login extends Component{
   constructor(props) {
     super(props);
     this.state={
-      email : '',
-      password : ''
+      name : '',
+      pswd: ''
     }
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleSubmit(event) {
-
-  event.preventDefault();
-    console.log(this.state)
-     var body = {
-      Email : this.state.email,
-      Password : this.state.password,
-    }
-    console.log(body);
-    if(this.state.email==""){
-      alert('Please enter the email')
-
-    }
-    else if(this.state.password==""){
-      alert('Please enter the password')
-    }
-    
-    else{
-        const url = "http://localhost:9000/login";
-          let headers = new Headers();
-      
-          headers.append('Content-Type','application/json');
-          headers.append('Accept','application/json');
-      
-          headers.append('Access-Control-Allow-origin',url);
-          headers.append('Access-Control-Allow-Credentials','true');
-      
-          headers.append('POST','GET');
-      
-          fetch(url, {
-            headers:headers,
-            method: 'POST',
-            body: JSON.stringify(body)
-          })
-    
-          .then(response => {if(response.redirected){
-            window.location.href="/user-home";
-          }
-          else if(response.ok){
-            console.log("Wrong email or password")
-            alert("Wrong email or password")
-          }
-          })
-          {/*}.catch((error)=> {console.log("can't access" + url + "response. " +error )},
-            alert("Wrong email or password"))*/}
-
-          }
-      
-    } 
+  
 
   validateForm() {
-    return this.state.name.length > 0 && this.state.password.length > 5;
+    return this.state.name.length > 0 && this.state.pswd.length > 5;
   }
 
-  handlePasswordChange (event) {
+  handleNameChange=event=>{
     this.setState({
-      
-      password: event.target.value
-
+      name : event.target.value
     });
-    console.log(event.target.value)
   }
 
-
-  handleEmailChange(event) {
-    this.setState({ email: event.target.value})
-    console.log(event.target.value)
+  handlePasswordChange=event=>{
+    this.setState({
+      pswd : event.target.value
+    });
   }
+
+  handleSubmit=event=>{
+    event.preventDefault();
+    //console.log(this.state)
+     var body = {
+      pswd : this.state.pswd,
+      name : this.state.name,
+    }
+    //console.log(body);
+    if(this.state.name==""){
+      alert('Please enter the name')
+
+    }
+    else if(this.state.pswd==""){
+      alert('Please enter the password')
+  }
+    else{
+    const url = "http://localhost:9000/personVal";
+    let headers = new Headers();
+ 
+    headers.append('Content-Type','application/json');
+    headers.append('Accept','application/json');
+ 
+    headers.append('Access-Control-Allow-origin',url);
+    headers.append('Access-Control-Allow-Credentials','true');
+ 
+    headers.append('POST','GET');
+ 
+    fetch(url, {
+       headers:headers,
+       method: 'POST',
+       body: JSON.stringify(body)
+    })
+    .then(response => {if(response.redirected){
+      this.props.history.push("/Home1");
+      
+      //window.location.href="/main";
+    }
+    else if(response.ok){
+    alert("Invalid Credentials")
+    }
+ })
+  }
+}
 
     render() {
         return (<div className="bg">
@@ -101,14 +94,14 @@ class Login extends Component{
                 <h3>Login</h3>
 
                 <div className="form-group">
-                    <label>Email address</label>
-                    <input type="text" name="email" id="exampleEmail" className="form-control" placeholder="Enter email"
-                    onChange = {this.handleEmailChange} />
+                    <label>Username</label>
+                    <input type="text" name="name" id="examplename" className="form-control" placeholder="Enter Username"
+                    onChange = {this.handleNameChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" id="examplePassword" className="form-control" placeholder="Enter password" 
+                    <input type="password" name="pswd" id="examplePassword" className="form-control" placeholder="Enter password" 
                     onChange = {this.handlePasswordChange}/>
                 </div>
 
@@ -122,7 +115,7 @@ class Login extends Component{
          
              
                 <p className="forgot-password text-right">
-                    If not registered <a href="/sign-up">Signup?</a>
+                    If not registered <a href="/Signup">Signup?</a>
                 </p>
             
         

@@ -5,12 +5,13 @@ import { BrowserRouter as Router,
   Route,
    Link } from "react-router-dom";
    import Login from "./components/home/login";
-   import SignUp from "./components/home/signup";
+   import Signup from "./components/home/Signup";
    import Home from "./components/home/home";
-   import UserHome from "./components/User/UserHome";
-   import complaint from "./components/User/complaint_registration";
-   import Adminlogin from "./components/home/adminlogin.js"; 
+   import Home1 from './components/Home1';
+   import Driver from './components/Driver';
+   import Pooler from './components/Pooler';
    import About from "./components/home/about.js";
+   import List from "./components/List";
 
 
 
@@ -27,11 +28,12 @@ class App extends Component {
             <Route exact path='/' component={ Home } />
             <Route exact path='/Home' component={ Home } />
             <Route path="/Login" component={ Login } />
-            <Route path="/sign-up" component={ SignUp } />
-            <Route path="/user-home" component={ UserHome }/>
-            <Route path="/complaint" component={ complaint }/>
-            <Route path="/adminlogin" component= { Adminlogin}/>
+            <Route path="/Signup" component={ Signup } />
+            <Route path="/Home1" component={Home1}/>
+            <Route path="/Driver" component={Driver}/>
+            <Route path="/Pooler" component={Pooler}/>
             <Route path="/about" component= { About }/>
+            <Route path="/list" component= { List }/>
                 </Switch>
             </Router>
             </div>
