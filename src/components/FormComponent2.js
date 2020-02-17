@@ -1,17 +1,10 @@
-// modules/FormComponent.js
+
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-//import DatePicker from 'material-ui/DatePicker';
-//import TimePicker from 'material-ui/TimePicker';
-//import Toggle from 'material-ui/Toggle';
-//import firebase from '../backend/Firebase';
 import { Redirect } from 'react-router-dom';
-//mport GooglePlaceAutocomplete from 'material-ui-autocomplete-google-places';
 import moment, { isMoment } from 'moment';
-//import Calendar from 'ciqu-react-calendar';
-//import TimePicker from 'react-gradient-timepicker';
 import { Link } from 'react-router-dom';
 
 
@@ -33,8 +26,6 @@ const styles = {
   },
 };
 
-// Get a reference to the database service
-//var database = firebase.database();
 
 
 class FormComponent extends Component{
@@ -44,7 +35,6 @@ class FormComponent extends Component{
         open: false,
         origin: '',
         destin:'',
-        //controlledDate: moment(`2014-06-01T12:00:00Z`).utc().tz('America/Los_Angeles').toDate(),
         controlledDate: null,
         time:moment(),
         value: null,
@@ -97,11 +87,10 @@ class FormComponent extends Component{
     }
     onchangeTimeDisabled=(event , date)=>{
         this.setState({timeReturn:date});
-    }*/
-    /*
+    }
+    
     onSubmitForm=()=>{
-      let payload;
-      var UCRef = database.ref(this.state.databaseType);
+
 
       if (this.state.origin === "") {
         this.setState({originfieldRequired : 'This field is Required'});
@@ -122,7 +111,7 @@ class FormComponent extends Component{
               'date' : logDate,
               'time' : logTime
           };
-          UCRef.push(payload);
+         
         } else {
           var logDateReturn =  this.state.controlledDateReturn.getDate() + "/" + (this.state.controlledDateReturn.getMonth() + 1) + "/" + this.state.controlledDateReturn.getFullYear();
           var logTimeReturn = this.state.timeReturn.getHours() + ":" + this.state.timeReturn.getMinutes();
@@ -135,7 +124,7 @@ class FormComponent extends Component{
               'dateReturn' : logDateReturn,
               'timeReturn' : logTimeReturn
           };
-          UCRef.push(payload);
+         
         }
         this.setState({
           open: false,

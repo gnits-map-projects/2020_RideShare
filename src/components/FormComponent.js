@@ -1,17 +1,14 @@
-// modules/FormComponent.js
+
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-//import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import Toggle from 'material-ui/Toggle';
-//import firebase from '../backend/Firebase';
 import { Redirect } from 'react-router-dom';
-//mport GooglePlaceAutocomplete from 'material-ui-autocomplete-google-places';
 import moment, { isMoment } from 'moment';
 import Calendar from 'ciqu-react-calendar';
-//import TimePicker from 'react-gradient-timepicker';
+
 
 
 const styles = {
@@ -31,9 +28,6 @@ const styles = {
   },
 };
 
-// Get a reference to the database service
-//var database = firebase.database();
-
 
 class FormComponent extends Component{
     constructor(props) {
@@ -42,7 +36,6 @@ class FormComponent extends Component{
         open: false,
         origin: '',
         destin:'',
-        //controlledDate: moment(`2014-06-01T12:00:00Z`).utc().tz('America/Los_Angeles').toDate(),
         controlledDate: null,
         time:moment(),
         value: null,

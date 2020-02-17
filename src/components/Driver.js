@@ -1,6 +1,5 @@
-// modules/Driver.js
+
 import React, { Component } from 'react';
-//import logo from './images/logo.svg';
 import FormComponent2 from './FormComponent2';
 import Header from './HeaderComponent';
 const styles = {
@@ -13,11 +12,6 @@ const styles = {
   },
 };
 
-// Get a reference to the database service
-/*
-var database = firebase.database();
-var UCRef = database.ref("/drivers");
-*/
 class Driver extends Component{
     constructor(props) {
       super(props);

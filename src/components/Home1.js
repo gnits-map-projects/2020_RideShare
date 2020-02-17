@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import logo from './images/logo.svg';
 import driverimage from './images/car-compact.png';
 import poolerimage from './images/call-taxi.png';
 import './App.css';

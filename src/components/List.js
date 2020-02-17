@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import firebase from '../backend/Firebase';
 import Header from './HeaderComponent';
 import {Card, CardActions, CardHeader, CardText, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -8,8 +7,6 @@ import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-// Get a reference to the database service
-//var database = firebase.database();
 const style = {
   height: 50,
   width: 150,
