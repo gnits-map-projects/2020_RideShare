@@ -6,34 +6,43 @@ import {createBrowserHistory} from 'history';
 
 var body;
 let token="";
+const validRollRegex = RegExp(/^1[6-9]251A((12)|(17)|(02)|(04)|(05))([0-9]{2}|([A-I]{1}[0-9]{1}))$/i);
 
 class Login extends Component{
   constructor(props) {
     super(props);
     this.state={
-      name : '',
-      pswd: ''
+      rollno : '',
+      pswd: '',
+      errors: {   
+        password: '',
+        rollno : '',
+      }
     }
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleRollnoChange = this.handleRollnoChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
 
   validateForm() {
-    return this.state.name.length > 0 && this.state.pswd.length > 5;
+    return this.state.rollno.length > 0 && this.state.pswd.length > 5;
   }
 
-  handleNameChange=event=>{
-    this.setState({
-      name : event.target.value
-    });
+  handleRollnoChange=event=>{
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+    errors.rollno = 
+          validRollRegex.test(value)
+            ? ''
+            : 'RollNo. is not valid!';
+    this.setState({errors, [name]: value});
+    console.log(this.state.rollno)
   }
 
   handlePasswordChange=event=>{
-    this.setState({
-      pswd : event.target.value
-    });
+    this.setState({pswd : this.state.value});
+    console.log(this.state.pswd)
   }
 
   handleSubmit=event=>{
@@ -41,11 +50,11 @@ class Login extends Component{
     //console.log(this.state)
      var body = {
       pswd : this.state.pswd,
-      name : this.state.name,
+      rollno: this.state.rollno,
     }
     //console.log(body);
-    if(this.state.name==""){
-      alert('Please enter the name')
+    if(this.state.rollno==""){
+      alert('Please enter the Roll Number')
 
     }
     else if(this.state.pswd==""){
@@ -68,12 +77,12 @@ class Login extends Component{
        method: 'POST',
        body: JSON.stringify(body)
     })
-    .then(response => {if(response.redirected){
+    .then(response => {if(response.ok){
       this.props.history.push("/Home1");
       
       //window.location.href="/main";
     }
-    else if(response.ok){
+    else{
     alert("Invalid Credentials")
     }
  })
@@ -81,29 +90,31 @@ class Login extends Component{
 }
 
     render() {
+      const {errors} = this.state;
         return (<div className="bg">
 
 <Navigation/>
             <br></br><br/>
             <br/>
 
-            <div className="auth-wrapper">
+            <div className="auth-wrapper2" >
             <div className="auth-inner">
-               
+              <div className="set">
             <form>
-                <h3>Login</h3>
+                <center><h3>Login</h3></center>
 
                 <div className="form-group">
-                    <label>Username</label>
-                    <input type="text" name="name" id="examplename" className="form-control" placeholder="Enter Username"
-                    onChange = {this.handleNameChange} />
+                    <label>Roll Number</label>
+                    <input type="text" name="rollno" id="examplename" className="form-control" placeholder="Enter Username"
+                    onChange = {this.handleRollnoChange} value={this.state.rollno}/>
+                    <span className='error'>{errors.rollno}</span>
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
                     <input type="password" name="pswd" id="examplePassword" className="form-control" placeholder="Enter password" 
-                    onChange = {this.handlePasswordChange}/>
-                </div>
+                    onChange = {this.handlePasswordChange} value={this.state.pswd}/>
+                  </div>
 
                 
 
@@ -121,6 +132,7 @@ class Login extends Component{
         
 
             </form>
+            </div>
             </div>
             <br/><br/><br/><br/><br/><br/><br/><br/>
             </div>

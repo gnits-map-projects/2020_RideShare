@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import FormComponent2 from './FormComponent2';
+import Form2 from './Form2';
 import Header from './HeaderComponent';
 const styles = {
   block: {
@@ -23,7 +23,7 @@ class Driver extends Component{
         <Header/>
         <h2>Find A ride</h2>
         <div>
-        <FormComponent2/> 
+        <Form2/> 
        </div>
       </div>
     );
