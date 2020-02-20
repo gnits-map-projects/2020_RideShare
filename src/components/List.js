@@ -6,6 +6,7 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Navbar from './home/Nav1';
 
 const style = {
   height: 50,

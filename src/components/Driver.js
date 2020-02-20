@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import Form2 from './Form2';
 import Header from './HeaderComponent';
+import Navbar from './home/Nav1';
 const styles = {
   block: {
     maxWidth: 250,
@@ -20,8 +21,8 @@ class Driver extends Component{
     render() {
     return (
       <div className="App">
-        <Header/>
-        <h2>Find A ride</h2>
+        <Navbar/><br/><br/><br/><br/><br/>
+        <h1>Find A Ride</h1>
         <div>
         <Form2/> 
        </div>

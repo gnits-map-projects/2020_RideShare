@@ -1,34 +1,33 @@
 import React, { Component } from "react";
-import { useHistory, withRouter,Link } from "react-router-dom";
+import { useHistory, withRouter,Link, Redirect } from "react-router-dom";
 import './home.css';
 import Navigation  from './Nav.js';
 import {createBrowserHistory} from 'history';
-
 var body;
 let token="";
 const validRollRegex = RegExp(/^1[6-9]251A((12)|(17)|(02)|(04)|(05))([0-9]{2}|([A-I]{1}[0-9]{1}))$/i);
+class Login extends React.Component {
 
-class Login extends Component{
   constructor(props) {
+   
     super(props);
     this.state={
+      
+      pswd : '',
       rollno : '',
-      pswd: '',
       errors: {   
         password: '',
         rollno : '',
       }
+      
+
     }
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleRollnoChange = this.handleRollnoChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRollnoChange=this.handleRollnoChange.bind(this)
+  this.handlePasswordChange=this.handlePasswordChange.bind(this)
+  this.handleSubmit=this.handleSubmit.bind(this)
+  
   }
   
-
-  validateForm() {
-    return this.state.rollno.length > 0 && this.state.pswd.length > 5;
-  }
-
   handleRollnoChange=event=>{
     const { name, value } = event.target;
     let errors = this.state.errors;
@@ -38,23 +37,24 @@ class Login extends Component{
             : 'RollNo. is not valid!';
     this.setState({errors, [name]: value});
     console.log(this.state.rollno)
+    
   }
 
   handlePasswordChange=event=>{
-    this.setState({pswd : this.state.value});
-    console.log(this.state.pswd)
+    this.setState({
+      pswd : event.target.value
+    });
   }
 
   handleSubmit=event=>{
     event.preventDefault();
-    //console.log(this.state)
+    console.log(this.state);
      var body = {
       pswd : this.state.pswd,
-      rollno: this.state.rollno,
+      rollno : this.state.rollno,
     }
-    //console.log(body);
-    if(this.state.rollno==""){
-      alert('Please enter the Roll Number')
+    if(this.state.name==""){
+      alert('Please enter the name')
 
     }
     else if(this.state.pswd==""){
@@ -77,20 +77,27 @@ class Login extends Component{
        method: 'POST',
        body: JSON.stringify(body)
     })
+    /*.then(response => response.text().then(data => ({data1:(data)}))
+      .then(response => {
+      console.log(response.data1)
+      var obj =JSON.parse(response.data1)
+      this.setState({
+      rollno : obj.rollno, });
+    }))*/
     .then(response => {if(response.ok){
       this.props.history.push("/Home1");
       
-      //window.location.href="/main";
     }
-    else{
+    else {
     alert("Invalid Credentials")
     }
  })
   }
 }
 
-    render() {
-      const {errors} = this.state;
+  render() {
+
+       const {errors} = this.state;
         return (<div className="bg">
 
 <Navigation/>
@@ -140,4 +147,5 @@ class Login extends Component{
         );
     }
 }
-export default withRouter(Login);
+
+export default Login;

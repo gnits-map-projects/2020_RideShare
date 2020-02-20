@@ -12,7 +12,7 @@ import { BrowserRouter as Router,
    import Pooler from './components/Pooler';
    import About from "./components/home/about.js";
    import List from "./components/List";
-
+   import logout from './components/home/logout';
 
 
 class App extends Component {
@@ -33,6 +33,7 @@ class App extends Component {
             <Route path="/Driver" component={Driver}/>
             <Route path="/Pooler" component={Pooler}/>
             <Route path="/about" component= { About }/>
+            <Route path="/logout" component= { logout }/>
             <Route path="/list" component= { List }/>
                 </Switch>
             </Router>

@@ -6,7 +6,8 @@ import Navigation from './Nav.js';
 
 var body;
 const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
-const validRollRegex = RegExp(/^1[6-9]251A((12)|(17)|(02)|(04)|(05))([0-9]{2}|([A-I]{1}[0-9]{1}))$/i);
+const validRollRegex = RegExp(/^1[6-9]251A((12)|(17)|(02)|(04)|(05))([0-9]{2}|([A-I]{1}[0-9]{1}))$/);
+const validMobileRegex = RegExp(/^[6-9]{1}[0-9]{9}$/);
 
 export default class Signup extends Component {
   constructor(props) {
@@ -114,9 +115,9 @@ export default class Signup extends Component {
     const { name, value } = event.target;
     let errors = this.state.errors;
     errors.mobile = 
-    (value.length < 10 || value.length > 10)
-      ? 'Enter a valid phone number!'
-      : '';
+    (validMobileRegex.test(value))
+      ? ''
+      : 'Enter a valid phone number!';
    if(errors.mobile==  '')
     {
         this.setState({ph : true});
@@ -196,13 +197,14 @@ export default class Signup extends Component {
     .then(response => response.json())
     .then(contents => {console.log(contents);})
     .catch(()=> console.log("can't access " + url + " response. "))
+    alert("Details inserted successfully!");
+    this.props.history.push("/login");
   }
   else{
     alert("enter details correctly")
   }
 }
-alert("Details inserted successfully!");
-this.props.history.push("/login");
+
   }
 
   

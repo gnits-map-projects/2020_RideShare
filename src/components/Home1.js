@@ -3,10 +3,11 @@ import driverimage from './images/car-compact.png';
 import poolerimage from './images/call-taxi.png';
 import './App.css';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import Header from './HeaderComponent';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Navbar from './home/Nav1';
 
 
 
@@ -20,11 +21,13 @@ const style = {
 };
 
 class Home1 extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    
 
     this.state = {
-      loading: true
+      loading: true,
+     
     };
   }
 
@@ -33,6 +36,9 @@ class Home1 extends Component {
 
   }
   render() {
+    if(this.state.loggedIn === false){
+        return <Redirect to = '/login'/>
+    }
     const loadpage = [<MuiThemeProvider><CircularProgress/></MuiThemeProvider>]
     const { loading } = this.state;
 
@@ -43,17 +49,17 @@ class Home1 extends Component {
     return (
       <MuiThemeProvider>
       <div className="App">
-      <Header/>
-        <div>
+      <Navbar/>
+        <div><br/><br/><br/><br/><br/>
           <h1>What are you looking for?</h1>
         </div>
         <div>
           <ul role="nav">
           <Paper style={style} zDepth={2} circle={true} >
-          <Link to="/driver"><img src={driverimage} alt="logo" /></Link>
+          <Link to="/pooler"><img src={driverimage} alt="logo" /></Link>
           </Paper>
           <Paper style={style} zDepth={2} circle={true} >
-          <Link to="/pooler"><img src={poolerimage} alt="logo" align="center"/></Link>
+          <Link to="/driver"><img src={poolerimage} alt="logo" align="center"/></Link>
           </Paper>
           <p/>
           </ul>
