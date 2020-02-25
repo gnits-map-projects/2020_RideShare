@@ -1,0 +1,27 @@
+2020-02-25 15:33:32,330 [WARN] from application in play-dev-mode-akka.actor.default-dispatcher-7 - application.conf @ jar:file:/Users/macadmin/niharika/play-java-jpa-example/build/playBinary/lib/play-java-jpa-example.jar!/application.conf: 7: user is deprecated, use username instead
+2020-02-25 15:33:32,332 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-7 - Database [default] initialized at jdbc:mysql://localhost:3306/project
+2020-02-25 15:33:32,374 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-7 - Creating Pool for datasource 'default'
+2020-02-25 15:33:32,417 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-akka.actor.default-dispatcher-7 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2020-02-25 15:33:33,223 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-akka.actor.default-dispatcher-7 - datasource [default] bound to JNDI as DefaultDS
+2020-02-25 15:33:34,003 [WARN] from org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator in play-dev-mode-akka.actor.default-dispatcher-7 - HV000184: ParameterMessageInterpolator has been chosen, EL interpolation will not be supported
+2020-02-25 15:33:36,804 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-7 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+    play.filters.cors.CORSFilter
+
+2020-02-25 15:33:36,809 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-7 - Application started (Dev)
+2020-02-25 15:40:43,943 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2020-02-25 15:40:44,142 [WARN] from application in play-dev-mode-akka.actor.default-dispatcher-15 - application.conf @ jar:file:/Users/macadmin/niharika/play-java-jpa-example/build/playBinary/lib/play-java-jpa-example.jar!/application.conf: 7: user is deprecated, use username instead
+2020-02-25 15:40:44,143 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-15 - Database [default] initialized at jdbc:mysql://localhost:3306/project
+2020-02-25 15:40:44,143 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-15 - Creating Pool for datasource 'default'
+2020-02-25 15:40:44,143 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-akka.actor.default-dispatcher-15 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2020-02-25 15:40:44,167 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-akka.actor.default-dispatcher-15 - datasource [default] bound to JNDI as DefaultDS
+2020-02-25 15:40:44,185 [WARN] from org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator in play-dev-mode-akka.actor.default-dispatcher-15 - HV000184: ParameterMessageInterpolator has been chosen, EL interpolation will not be supported
+2020-02-25 15:40:44,596 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-15 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+    play.filters.cors.CORSFilter
+
+2020-02-25 15:40:44,598 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-15 - Application started (Dev)
