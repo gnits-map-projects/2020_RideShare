@@ -8,6 +8,7 @@ import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
+import models.ValidateRepository;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
@@ -17,6 +18,7 @@ import static play.libs.Json.toJson;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 import play.libs.Json;
 
+
 /**
  * The controller keeps all database operations behind the repository, and uses
  * {@link play.libs.concurrent.HttpExecutionContext} to provide access to the
@@ -24,9 +26,13 @@ import play.libs.Json;
  */
 public class PersonController extends Controller {
 
+
     private final FormFactory formFactory;
     private final PersonRepository personRepository;
     private final HttpExecutionContext ec;
+
+
+
 
     @Inject
     public PersonController(FormFactory formFactory, PersonRepository personRepository, HttpExecutionContext ec) {
@@ -35,22 +41,29 @@ public class PersonController extends Controller {
         this.ec = ec;
     }
 
+
     public Result index() {
         return ok(views.html.index.render());
     }
 
     public CompletionStage<Result> addPerson() {
-        //JsonNode json = request().body().asJson();
-       // String name = json.get("name").asText();
+        JsonNode json = request().body().asJson();
+        String rollno = json.get("rollno").asText();
         //System.out.println("Name:"+name);
         //Person person = new Person() ;
         //person.setName(name);
+        String phoneNumber1=json.get("phoneNumber").asText();
+        Long phoneNumber= Long.parseLong(phoneNumber1);
         Person person=Json.fromJson(request().body().asJson(),Person.class);
+
         return personRepository.add(person).thenApplyAsync(p -> {
+
           //return redirect(routes.PersonController.index());
-            return ok();
-        }, ec.current());
+            return ok("authenticated");
+        }
+        , ec.current());
     }
+
     public CompletionStage<Result> getPersons() {
 
         return personRepository.list().thenApplyAsync(personStream -> {
@@ -67,6 +80,46 @@ public class PersonController extends Controller {
             //return redirect(routes.PersonController.index());
             return ok("deleted "+name);
         }, ec.current());
+    }
+    public Result login() {
+    JsonNode j=request().body().asJson();
+    String Rollno=j.get("rollno").asText();
+    String password=j.get("pswd").asText();
+    Person ps=personRepository.login(Rollno,password);
+       if(ps==null){
+           return badRequest("Invalid credentials!!");
+    }
+        else{
+            //String s = "{\'rollno\':'+ps.rollno+'}";
+           return ok((ps.rollno));//Json.parse(s));
+
+    }
+
+}
+
+
+
+    /*public CompletionStage<Result> profile(){
+        JsonNode j=request().body().asJson();
+        String username=j.get("name").asText();
+        String password=j.get("pswd").asText();
+        return personRepository.listuser(username,password).thenApplyAsync(personStream -> {
+            return ok(toJson(personStream.collect(Collectors.toList())));
+        }, ec.current());
+    }*/
+
+    public Result login1() {
+        JsonNode j = request().body().asJson();
+        String rollno = j.get("rollno").asText();
+        Person ps = personRepository.login1(rollno);
+
+        if (ps == null) {
+            return ok("not a valid user");
+        } else {
+            String s = "{\"email\":\"" + ps.email + "\", \"name\":\"" + ps.name + "\",\"phone\":\"" + ps.phoneNumber+ "\", \"rollno\":\"" + ps.rollno+"\" , \"age\":\"" + ps.age+"\" , \"gender\":\"" + ps.gender+"\" }";
+            return ok(s);
+        }
+
     }
 
 }

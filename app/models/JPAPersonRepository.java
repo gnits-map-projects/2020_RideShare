@@ -8,13 +8,20 @@ import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
 import java.util.stream.Stream;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import java.util.List;
+import java.util.concurrent.CompletionStage;
+import java.lang.Exception;
+import javax.persistence.NoResultException;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 /**
  * Provide JPA operations running inside of a thread pool sized to the connection pool
  */
-public class JPAPersonRepository implements PersonRepository {
+public  class JPAPersonRepository implements PersonRepository {
 
     private final JPAApi jpaApi;
     private final DatabaseExecutionContext executionContext;
@@ -55,6 +62,43 @@ public class JPAPersonRepository implements PersonRepository {
         Person foundPerson = em.createQuery("select p from Person p where name=:name",Person.class).setParameter("name", name).getSingleResult();
         em.remove(foundPerson);
         return foundPerson;
+
+    }
+    @Override
+    public Person login(String rollno,String pswd) {
+        try{
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+            EntityManager em= entityManagerFactory.createEntityManager();
+            em.getTransaction().begin();
+
+            Person foundPerson = em.createQuery("select p from Person p where rollno=:rollno and pswd=:pswd",Person.class).setParameter("rollno", rollno).setParameter("pswd", pswd).getSingleResult();
+            //em.remove(foundPerson);
+            return foundPerson;
+        }
+        catch(NoResultException e){
+            return null;
+        }
+
+
+
+    }
+
+    public Person login1(String rollno) {
+        try{
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+            EntityManager em= entityManagerFactory.createEntityManager();
+            em.getTransaction().begin();
+
+            Person PersonProfile = em.createQuery("select p from Person p where rollno=:rollno",Person.class).setParameter("rollno", rollno).getSingleResult();
+            //em.remove(foundPerson);getSingleResult();
+            //em.remove(foundPerson);
+            return PersonProfile;
+        }
+        catch(NoResultException e){
+            return null;
+        }
+
+
 
     }
 }

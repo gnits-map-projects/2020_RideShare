@@ -14,6 +14,12 @@ public interface PersonRepository {
     CompletionStage<Person> add(Person person);
 
     CompletionStage<Stream<Person>> list();
+    //CompletionStage<Stream<Person>> listuser(String username,String password);
+
     CompletionStage<Person> del(String name);
+
+    abstract Person login1(String Rollno);
+
+    abstract Person login(String Rollno,String password);
 
 }
