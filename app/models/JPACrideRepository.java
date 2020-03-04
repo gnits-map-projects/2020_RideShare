@@ -87,8 +87,8 @@ public  class JPACrideRepository implements CrideRepository {
         try {
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
             EntityManager em = entityManagerFactory.createEntityManager();
-            Cride c= insert(em,Cride);
-            add(Cride);
+           // Cride c= insert(em,Cride);
+            //add(Cride);
             //em.getTransaction().begin();
             // if(c.id !=0) {
                  Cride f = em.createQuery("select c from Cride c where src=:src and dest=:dest and rollno=:rollno and rtime=:rtime and phoneNumber=:phoneNumber and rdate=:rdate", Cride.class)
