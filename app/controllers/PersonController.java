@@ -122,4 +122,54 @@ public class PersonController extends Controller {
 
     }
 
+   /* public Result update(){
+        JsonNode j = request().body().asJson();
+        String rollno = j.get("rollno").asText();
+        System.out.println(rollno);
+        String name = j.get("name").asText();
+        String email = j.get("email").asText();
+        String age1 = j.get("age").asText();
+        int age = Integer.parseInt(age1);
+        String phone1 = j.get("phoneNumber").asText();
+        Long phoneNumber = Long.parseLong(phone1);
+        String gender = j.get("gender").asText();
+        String pswd = j.get("pswd").asText();
+        String ps = personRepository.update(rollno,name,email,age,phoneNumber,gender,pswd);
+        return ok(ps);
+
+    }*/
+   public CompletionStage<Result> updatePerson() {
+       JsonNode j=request().body().asJson();
+       String rollno=j.get("rollno").asText();
+       String name = j.get("name").asText();
+       String email = j.get("email").asText();
+       String age1 = j.get("age").asText();
+       int age = Integer.parseInt(age1);
+       String phone1 = j.get("phoneNumber").asText();
+       Long phoneNumber = Long.parseLong(phone1);
+       String gender = j.get("gender").asText();
+       String pswd = j.get("pswd").asText();
+       return personRepository.update(rollno,name,email,age,phoneNumber,gender,pswd).thenApplyAsync(ps -> {
+           //return redirect(routes.PersonController.index());
+           String s="{\"email\":\""+ps.email+"\", \"name\":\""+ps.name+"\",\"phone\":\""+ps.phoneNumber+"\"}";
+           return ok();
+       }, ec.current());
+   }
+
+    public Result checkRollno() {
+        JsonNode j = request().body().asJson();
+        String rollno = j.get("rollno").asText();
+        Person ps = personRepository.checkRollno(rollno);
+
+        if (ps == null) {
+            return badRequest("not a valid");
+        } else {
+            String s = "{ \"rollno\":\"" + ps.rollno+"\"}";
+            return ok(s);
+        }
+
+    }
+
+
+
 }

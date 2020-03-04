@@ -22,4 +22,9 @@ public interface PersonRepository {
 
     abstract Person login(String Rollno,String password);
 
+    //abstract String update(String rollno,String name,String email,int age,Long phoneNumber,String gender,String pswd);
+
+    CompletionStage<Person> update(String rollno,String name,String email,int age,Long phoneNumber,String gender,String pswd);
+
+    abstract Person checkRollno(String Rollno);
 }

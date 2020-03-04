@@ -3,6 +3,7 @@ package models;
 import javax.persistence.*;
 
 @Entity
+@Table(name="Cride")
 public class Cride {
 
     @Id
@@ -14,6 +15,9 @@ public class Cride {
     public String src;
     public String dest;
     public String rdate;
+    public String name;
+    public Long phoneNumber;
+    public int vacancy;
 
     public void setRollno(String rollno) {
         this.rollno = rollno;
@@ -61,5 +65,29 @@ public class Cride {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getVacancy() {
+        return vacancy;
+    }
+
+    public void setVacancy(int vacancy) {
+        this.vacancy = vacancy;
     }
 }

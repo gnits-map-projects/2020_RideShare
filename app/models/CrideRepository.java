@@ -9,6 +9,6 @@ import java.util.stream.Stream;
 public interface CrideRepository {
 
     CompletionStage<Cride> add(Cride Cride);
-
-
+    abstract Stream<Cride> findRide(String src, String dest);
+    abstract Cride addRide(Cride Cride,String src,String dest,String rollno,String  rtime,String rdate,Long phoneNumber,String name );
 }
