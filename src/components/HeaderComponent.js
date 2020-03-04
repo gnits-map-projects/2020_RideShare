@@ -9,7 +9,7 @@ class HeaderComponent extends Component{
     render() {
     return (
       <div className="App-header">
-        <Link to="/Home1"><img src={logo} className="App-logo" alt="logo" /></Link>
+        <Link to="/Home"><img src={logo} className="App-logo" alt="logo" /></Link>
         <h2>{page}</h2>
       </div>
     );

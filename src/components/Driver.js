@@ -1,8 +1,17 @@
 
 import React, { Component } from 'react';
 import Form2 from './Form2';
-import Header from './HeaderComponent';
-import Navbar from './home/Nav1';
+import { Link,Redirect } from 'react-router-dom';
+import {
+  Navbar,
+  Nav,
+  Form,
+  FormControl,
+  NavDropdown,
+  Button,
+  Image
+} from 'react-bootstrap'
+
 const styles = {
   block: {
     maxWidth: 250,
@@ -13,15 +22,36 @@ const styles = {
   },
 };
 
+var eid,profile,pooler,driver,history;
+
 class Driver extends Component{
     constructor(props) {
       super(props);
+      eid = this.props.match.params.rollno
+      profile = "/profile/"+eid;
+      pooler = "/pooler/"+eid;
+      driver = "/driver/"+eid;
+      history = "/history/"+eid;
     }
 
     render() {
     return (
       <div className="App">
-        <Navbar/><br/><br/><br/><br/><br/>
+         <Navbar bg="#1565c0" expand="md">
+      
+      <Navbar.Brand href="#home"><h2 ><Link to="/Home"><b className="heading">RIDE SHARE</b></Link></h2></Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav  className="mr-auto"></Nav>
+          <Nav>
+          <Nav.Link href={profile}><h5><b>PROFILE</b></h5></Nav.Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Nav.Link href= {history}><h5><b>HISTORY</b></h5></Nav.Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Nav.Link href="/logout"><h5><b>LOGOUT</b></h5></Nav.Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </Nav>
+       
+      </Navbar.Collapse>
+    </Navbar>    
+        <br/><br/><br/><br/><br/>
         <h1>Find A Ride</h1>
         <div>
         <Form2/> 

@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+  }
+  
+ 
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    
+  }
+  
+  h2{
+    color:#1565c0;
+  }
+ .profile{
+    position: relative;
+  }
+  .pcontainer {
+    position: absolute;
+    left:35%;
+    top: 600%;
+    border-radius: 5px;
+    border: black solid 2px;
+    width:700px;
+    height: 400px;
+  }
+  
+  .collabel {
+    float: left;
+    width: 15%;
+    margin-top: 6px;
+    margin-left:100px;
+  }
+  
+  .colvalue {
+    float: left;
+    width: 30%;
+    margin-top: 6px;
+    margin-left:30px;
+    
+  }
+ 
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }

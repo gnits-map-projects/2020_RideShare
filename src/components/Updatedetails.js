@@ -1,13 +1,13 @@
+
 import React, { Component } from "react";
 import { useHistory, withRouter,Link } from "react-router-dom";
-import './home.css';
-import Navigation from './Nav.js';
-
+import Navigation from './home/Nav1.js';
+import './Profile.css';
 var body;
 const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 const validRollRegex = RegExp(/^1[6-9]251A((12)|(17)|(02)|(04)|(05))([0-9]{2}|([A-I]{1}[0-9]{1}))$/);
 const validMobileRegex = RegExp(/^[6-9]{1}[0-9]{9}$/);
-var sr;
+
 export default class Signup extends Component {
   constructor(props) {
     super(props);
@@ -22,20 +22,20 @@ export default class Signup extends Component {
   
     this.state = {
 
-      r:false,
-      n:false,
-      e:false,
-      p:false,
-      ph:false,
-      g:false,
-      a:false,
-      rollno :'',
-      name: "",
-      email:"",
-      pswd: "",
-      phoneNumber:"",
-      gender : "",
-      age : "",
+      r:true,
+      n:true,
+      e:true,
+      p:true,
+      ph:true,
+      g:true,
+      a:true,
+      rollno:'',
+      name: '',
+      email:'',
+      pswd: '',
+      phoneNumber:'',
+      gender : '',
+      age :'',
       errors: {
         name: '',
         email: '',
@@ -47,32 +47,39 @@ export default class Signup extends Component {
       //confirmPassword: ""
       
     };
-
+  }
+  componentDidMount(){
+   this.setState({
+     
+      rollno : sessionStorage.getItem("srollno"),
+      name : sessionStorage.getItem("uname"),
+      email:sessionStorage.getItem("uemail"),
+      pswd: sessionStorage.getItem("upswd"),
+      phoneNumber:sessionStorage.getItem("uphone"),
+      gender : sessionStorage.getItem("ugender"),
+      age :sessionStorage.getItem("uage"),
+    })
+    console.log(this.state)
+    
   }
   validateForm() {
     return this.state.name.length > 0 && this.state.pswd.length > 5 ;
   }
 
   handleRollnoChange  = event => {
-   
     const { name, value } = event.target;
     let errors = this.state.errors;
     errors.rollno = 
           validRollRegex.test(value)
             ? ''
             : 'RollNo. is not valid!';
-    if(errors.rollno == '')
+    if(errors.rollno ==  'RollNo. is not valid!')
     {
-      this.setState({r : true});
+      this.setState({r : false});
     }
     this.setState({errors, [name]: value});
-    console.log(this.state.rollno)
-    if(errors.rollno == ''){
-    sr= this.state.rollno;
-   
-    } 
     
- }
+  }
 
   handleNameChange = event => {
     const { name, value } = event.target;
@@ -81,13 +88,14 @@ export default class Signup extends Component {
           value.length < 5
             ? 'Full Name must be 3 characters long!'
             : '';
-    if(errors.name ==  '')
+    if(errors.name ==  'Full Name must be 3 characters long!')
     {
-          this.setState({n : true});
+          this.setState({n : false});
    }
+   else{
+    this.setState({n : true});
+  }
     this.setState({errors, [name]: value});
-    console.log(this.state.name)
-    
   }
 
   handleEmailChange = event => {
@@ -97,10 +105,13 @@ export default class Signup extends Component {
           validEmailRegex.test(value)
             ? ''
             : 'Email is not valid!';
-    if(errors.email ==  '')
+    if(errors.email ==  'Email is not valid!')
       {
-         this.setState({e : true});
+         this.setState({e : false});
      }
+     else{
+      this.setState({e : true});
+    }
     this.setState({errors, [name]: value});
   }
 
@@ -111,8 +122,11 @@ export default class Signup extends Component {
     value.length < 8
       ? 'Password must be 8 characters long!'
       : '';
-    if(errors.password ==  '')
+    if(errors.password ==  'Password must be 8 characters long!')
       {
+        this.setState({p : false});
+      }
+      else{
         this.setState({p : true});
       }
     this.setState({errors, [name]: value});
@@ -125,13 +139,14 @@ export default class Signup extends Component {
     (validMobileRegex.test(value))
       ? ''
       : 'Enter a valid phone number!';
-   if(errors.mobile==  '')
+   if(errors.mobile==  'Enter a valid phone number!')
     {
-        this.setState({ph : true});
+        this.setState({ph : false});
+    }
+    else{
+      this.setState({ph : true});
     }
     this.setState({errors, [name]: value});
-    console.log(this.state.phoneNumber)
-
   }
   handleGenderChange(event) {
     this.setState({
@@ -143,18 +158,15 @@ export default class Signup extends Component {
     this.setState({
       age : event.target.value
     });
-  }
-
-
-
+  } 
 
   handleSubmit(event) {
     
     event.preventDefault();
     
-    
+    console.log(this.state)
      var body = {
-      rollno : this.state.rollno,
+      rollno :this.state.rollno,
       name : this.state.name,
       email : this.state.email,
       phoneNumber: this.state.phoneNumber,
@@ -162,8 +174,7 @@ export default class Signup extends Component {
       gender : this.state.gender,
       age : this.state.age
     }
-    
-    console.log(body);
+    //console.log(body);
     if(this.state.name==""){
       alert('Please enter the name')
     }
@@ -177,10 +188,6 @@ export default class Signup extends Component {
       alert('Please enter the password')
     }
 
-    else if(this.state.rollno==""){
-      alert('Please enter the rollno')
-    }
-
     else if(this.state.age==""){
       alert('Please enter the age')
     }
@@ -189,9 +196,9 @@ export default class Signup extends Component {
       alert('Please enter the gender')
     }
     else{
-    if(this.state.r == true && this.state.n == true && this.state.e == true && this.state.ph == true && this.state.p == true){
-    console.log(this.state)
-    const url = "http://localhost:9000/persons";
+    if(this.state.n == true && this.state.e == true && this.state.ph == true && this.state.p == true){
+    
+    const url = "http://localhost:9000/update";
     let headers = new Headers();
  
     headers.append('Content-Type','application/json');
@@ -211,53 +218,10 @@ export default class Signup extends Component {
     //.then(contents => {console.log(contents);})
     .then(response => {
       if(response.ok){
-        
-        //alert("Details inserted successfully!");
-        
-         /* var  body1={
-            rollno :this.state.rollno
-          }
-          const url = "http://localhost:9000/check";
-          let headers = new Headers();
-       
-          headers.append('Content-Type','application/json');
-          headers.append('Accept','application/json');
-       
-          headers.append('Access-Control-Allow-origin',url);
-          headers.append('Access-Control-Allow-Credentials','true');
-       
-          headers.append('POST','GET');
-       
-          fetch(url, {
-             headers:headers,
-             method: 'POST',
-             body: JSON.stringify(body1)
-          })
-          //.then(response => response.json())
-          //.then(contents => {console.log(contents);})
-          .then(response => 
-            response.text().then(data => ({
-                data1: (data)
-            })
-          ).then(res => {
-            console.log(res.data1)
-            var obj=JSON.parse(res.data1)
-           console.log(obj.rollno)
-           this.setState({
-             rollno : obj.rollno,
-            });
-          }))
-          .catch(()=> console.log("can't access " + url + " response. "))
-          if(sr==this.state.rollno){
-            alert("Already exists")
-          */
-        
-        this.props.history.push("/login");
-          
+        //alert("Details updated successfully!");
+        this.props.history.push("/profile");
         }
-        else{
-           alert("Not an authenticated user!")
-        }
+      
     })
     .catch(()=> console.log("can't access " + url + " response. "))
     
@@ -267,10 +231,14 @@ export default class Signup extends Component {
     alert("enter details correctly")
   }
 }
+
   }
+
+  
     render() {
+        console.log(this.state)
         const {errors} = this.state;
-        return (<div className ="bg">
+        return (<div >
             
             <Navigation/>
 
@@ -278,28 +246,15 @@ export default class Signup extends Component {
             <br/>
            
 
-            <div className="auth-wrapper1">
-            <div className="auth-inner">
+             <div className="container">
             <form>
-                <center><h3>Sign Up</h3></center>
+                <center><h3>Update Details</h3></center>
 
-                <div className="form-group">
-                    <label>Roll Number</label>
-                    <input type="text"
-                       name="rollno"
-                      id="exampleRollno"
-                      className="form-control"
-                      placeholder="Enter Roll No."
-                      value = {this.state.rollno} 
-                      onChange = {this.handleRollnoChange} required/>
-                      <span className='error'>{errors.rollno}</span>
-                      
-                      
-                </div>
-                 
-
-                <div className="form-group">
+                <div className="row">
+                 <div className="collabel">
                     <label>Name</label>
+                 </div>
+                 <div className="colvalue">
                     <input type="name"
                         name="name"
                         id="examplename"
@@ -307,11 +262,15 @@ export default class Signup extends Component {
                         placeholder="Enter name"
                         value = {this.state.name} 
                         onChange = {this.handleNameChange} required/>
+                         </div> 
                    <span className='error'>{errors.name}</span>
-                </div>
+                  </div>
 
-                <div className="form-group">
+                <div className="row">
+                 <div className="collabel">
                     <label>Email address</label>
+                  </div>
+                  <div className="colvalue">
                     <input type="email"
                         name="email"
                         id="exampleEmail"
@@ -319,21 +278,29 @@ export default class Signup extends Component {
                         placeholder="mygmail@gmail.com"
                         value = {this.state.email} 
                         onChange = {this.handleEmailChange} required/>
+                        </div>
                 <span className='error'>{errors.email}</span>
                 </div>
                 
-                <div className="form-group">
+                <div className="row">
+                <div className="collabel">
                     <label>Mobile</label>
+                </div>
+                <div className="colvalue">
                     <input type="phone" name="phoneNumber" className="form-control" id="examplePhone" 
                     placeholder="Enter mobile number"
                     value = {this.state.phoneNumber}
                     onChange = {this.handleMobileChange} required/>
+                </div>
                     <span className='error'>{errors.mobile}</span>
                 </div>
                 
                 
-            <div className="form-group">
-                <label>Password</label>
+            <div className="row">
+               <div className="collabel">
+                 <label>Password</label>
+                </div>
+              <div className="colvalue">
                 <input type="password"
                 name="pswd"
                 id="examplePassword"
@@ -342,19 +309,25 @@ export default class Signup extends Component {
                  value = {this.state.pswd} 
                  onChange = {this.handlePasswordChange} required/>
                 <span className='error'>{errors.password}</span>
+              </div>
                 </div>
 
 
-            <div className="form-group">
+            <div className="row">
+              <div className="collabel">
                     <label>Age</label>
+               </div>
+               <div className="colvalue">
                     <input type="number" name="age" className="form-control" id="exampleAge" 
                     placeholder="Enter Age"
-                    value = {this.state.Age}
+                    value = {this.state.age}
                     onChange = {this.handleAgeChange} required/>
+              </div>
             </div>
 
 
-            <div className="form-group">
+            <div className="row">
+              <div className="collabel">
             <label> Gender <br/>
             <input
               type="radio"
@@ -364,7 +337,7 @@ export default class Signup extends Component {
             />
             &nbsp;&nbsp;Female 
           </label>&nbsp;&nbsp;
-            
+
           <label>
             <input
               type="radio"
@@ -375,17 +348,11 @@ export default class Signup extends Component {
             &nbsp;&nbsp;Male
           </label>
           </div>
-          <button type="submit" className="btn btn-primary btn-block" onClick = {this.handleSubmit}>Sign Up</button>
-            <p className="forgot-password text-right">
-                Already registered <a href="/Login">Login?</a>
-            </p>
+          </div>
+          <button type="submit" className="btn btn-primary btn-block" onClick = {this.handleSubmit}>Update</button>
         </form>
         </div>
-            </div></div>
+            </div>
         );
     }
 }
-
-
-
-

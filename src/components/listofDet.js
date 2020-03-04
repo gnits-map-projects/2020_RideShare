@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Header from './HeaderComponent';
+
 import {Card, CardActions, CardHeader, CardText, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
+
 import Paper from 'material-ui/Paper';
-import Chip from 'material-ui/Chip'
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Navbar from './home/Nav1';
-import { mockComponent } from 'react-dom/test-utils';
+
 
 var obj;
 const style = {
@@ -33,7 +33,7 @@ const buttonStyle ={
   marginLeft : 20,
 }
 
-class List extends Component {
+class DisHistory extends Component {
   constructor(props){
   super(props);
   this.state={
@@ -42,18 +42,14 @@ class List extends Component {
     
     //databaseType : this.props.databaseType,
     }
-    this.handleClick = this.handleClick.bind(this);
   }
-  handleClick(){
-    window.location.href="/listofDet";
-  }
+
   componentDidMount = () => {
     var body = {
-      src    : sessionStorage.getItem("src"),
-      dest   : sessionStorage.getItem("dest"),
+      frollno : sessionStorage.getItem("srollno")
       
       }
-    const url = "http://localhost:9000/find";
+    const url = "http://localhost:9000/history";
       
     let headers = new Headers();
      headers.append('Content-Type','application/json');
@@ -86,7 +82,9 @@ class List extends Component {
      
  
  }
-
+listItems(){
+  
+}
   render() {
    
     //var listItems = this.state.name;
@@ -101,7 +99,7 @@ class List extends Component {
       <MuiThemeProvider>
         <Card style={cardStyle}>
           <CardHeader
-            title={list.name}
+            title={list.cname}
             avatar=""
           />
           <CardText>
@@ -116,10 +114,7 @@ class List extends Component {
           <p> {list.rtime}</p>
           </Paper>
           <Paper style={style} zDepth={1}>
-          <p> vacancy:4</p>
-          </Paper>
-          <Paper style={style} zDepth={1}>
-  <p>{list.rollno}</p>
+        <p>{list.rollno}</p>
           {/*<p>{list.date}  {list.time}</p>*/}
           </Paper>
           {/* list.dateReturn ? (<p>
@@ -130,7 +125,7 @@ class List extends Component {
               </Paper>
           </p>) : (<p/>)*/}
           <CardActions>
-            <RaisedButton label="Click to know the details!" style={buttonStyle} onClick={this.handleClick}/>
+            <RaisedButton label="Click to know the details!" style={buttonStyle}/>
           </CardActions>
         </Card>
 
@@ -151,7 +146,7 @@ class List extends Component {
   }
 }
 
-export default List;
+export default DisHistory;
 
 /*let s=this.state.s
         let n

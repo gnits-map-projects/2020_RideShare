@@ -1,25 +1,31 @@
+
 import React, { Component } from "react";
 import { useHistory, withRouter,Link, Redirect } from "react-router-dom";
 import './home.css';
 import Navigation  from './Nav.js';
-import {createBrowserHistory} from 'history';
-var body;
+
+
 let token="";
+var rollno1;
+var rollno;
 const validRollRegex = RegExp(/^1[6-9]251A((12)|(17)|(02)|(04)|(05))([0-9]{2}|([A-I]{1}[0-9]{1}))$/i);
 class Login extends React.Component {
 
   constructor(props) {
-   
+    let loggedIn=true;
+    if(token == null){
+      loggedIn=false;
+    }
     super(props);
     this.state={
       
       pswd : '',
       rollno : '',
+      loggedIn,
       errors: {   
         password: '',
         rollno : '',
       }
-      
 
     }
     this.handleRollnoChange=this.handleRollnoChange.bind(this)
@@ -37,6 +43,7 @@ class Login extends React.Component {
             : 'RollNo. is not valid!';
     this.setState({errors, [name]: value});
     console.log(this.state.rollno)
+    rollno = "/Home1"+this.state.rollno;
     
   }
 
@@ -71,7 +78,8 @@ class Login extends React.Component {
     headers.append('Access-Control-Allow-Credentials','true');
  
     headers.append('POST','GET');
- 
+
+     rollno1 = this.state.rollno;
     fetch(url, {
        headers:headers,
        method: 'POST',
@@ -85,7 +93,13 @@ class Login extends React.Component {
       rollno : obj.rollno, });
     }))*/
     .then(response => {if(response.ok){
-      this.props.history.push("/Home1");
+      localStorage.setItem("token","gshfdyuyweu74ruergfjsd")
+      this.setState({
+        loggedIn : true
+      })
+      if(this.state.loggedIn){
+        this.props.history.push("/home1");
+        }
       
     }
     else {
@@ -96,13 +110,15 @@ class Login extends React.Component {
 }
 
   render() {
-
+    sessionStorage.setItem("upswd",this.state.pswd);
+       sessionStorage.setItem("srollno",this.state.rollno)
        const {errors} = this.state;
         return (<div className="bg">
 
-<Navigation/>
+        <Navigation/>
             <br></br><br/>
             <br/>
+
 
             <div className="auth-wrapper2" >
             <div className="auth-inner">
@@ -144,8 +160,11 @@ class Login extends React.Component {
             <br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
             </div>
+             
         );
+       
     }
+    
 }
 
 export default Login;

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './Form1.css'
 import TimePicker from 'react-timekeeper';
 var r=sessionStorage.getItem("srollno")
-var name,ph,frollno,crollno;
-class Form1 extends Component{
+var  name=sessionStorage.getItem("uname");
+var ph,frollno,crollno;
+class Form3 extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -11,6 +12,7 @@ class Form1 extends Component{
               dname : "",
               date : "",
               time : "10:00 pm",
+              id: ""
 
         }
        
@@ -26,6 +28,11 @@ class Form1 extends Component{
       ph=sessionStorage.getItem("uphone");
       crollno = sessionStorage.getItem("srollno");
       frollno = sessionStorage.getItem("srollno");
+    console.log(sessionStorage.getItem("srollno"))
+    console.log(sessionStorage.getItem("uname"))
+    console.log(sessionStorage.getItem("uphone"))
+    console.log(sessionStorage.getItem("ugender"))
+    console.log(sessionStorage.getItem("uage"))
     }
    
     snameChange = event =>{
@@ -55,34 +62,8 @@ class Form1 extends Component{
       //  event.preventDefault();
       //  console.log(this.state);
       event.preventDefault();
-    console.log(this.state)
-      const url = "http://localhost:9000/addRide";
-      let headers = new Headers();
-   
-      headers.append('Content-Type','application/json');
-      headers.append('Accept','application/json');
-   
-      headers.append('Access-Control-Allow-origin',url);
-      headers.append('Access-Control-Allow-Credentials','true');
-   
-      headers.append('POST','GET');
-   
-      fetch(url, {
-         headers:headers,
-         method: 'POST',
-         body: JSON.stringify(body)
-      })
-      //.then(response => response.json())
-      //.then(contents => {console.log(contents);})
-      .then(response => {
-        if(response.ok){
-          alert("inserted");
-          }
-        
-      })
-    
     var body = {
-    rollno : r,
+    rollno : crollno,
     rtime  : this.state.time.formatted24,
     src    : this.state.sname,
     dest   : this.state.dname,
@@ -109,33 +90,112 @@ class Form1 extends Component{
       alert('Please enter date')
     }
     else{
-      console.log(this.state)
-      const url = "http://localhost:9000/addRide";
-      let headers = new Headers();
-   
-      headers.append('Content-Type','application/json');
-      headers.append('Accept','application/json');
-   
-      headers.append('Access-Control-Allow-origin',url);
-      headers.append('Access-Control-Allow-Credentials','true');
-   
-      headers.append('POST','GET');
-   
-      fetch(url, {
-         headers:headers,
-         method: 'POST',
-         body: JSON.stringify(body)
-      })
-      //.then(response => response.json())
-      //.then(contents => {console.log(contents);})
-      .then(response => {
-        if(response.ok){
-          alert("inserted");
-          }
-        
-      })
+        console.log(body)
+
+        let url = "http://localhost:9000/addRide";
       
+        let headers = new Headers();
+         headers.append('Content-Type','application/json');
+         headers.append('Accept','application/json');
+    
+          headers.append('Access-Control-Allow-origin',url);
+          headers.append('Access-Control-Allow-Credentials','true');
+  
+          headers.append('POST','GET');
+          fetch(url, {
+            headers:headers,
+            method: 'POST',
+            body: JSON.stringify(body)
+          }).then(response=>{if(response.ok){
+             alert("ok")
+            this.callId()
+          }
+          })
+          
+   
+       
 }
+  }
+  callId()
+  {
+    var body = {
+      rollno : crollno,
+      rtime  : this.state.time.formatted24,
+      src    : this.state.sname,
+      dest   : this.state.dname,
+      rdate  : this.state.date,
+      name   : name,
+      phoneNumber :ph,
+      crollno :crollno,
+      frollno:frollno,
+      tname : name,
+      vacancy : 3
+      
+      }
+   let url = "http://localhost:9000/adding";
+      
+   let  headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('Accept','application/json');
+
+     headers.append('Access-Control-Allow-origin',url);
+     headers.append('Access-Control-Allow-Credentials','true');
+
+     headers.append('POST','GET');
+     fetch(url, {
+       headers:headers,
+       method: 'POST',
+       body: JSON.stringify(body)
+     }).then(response=>{
+         console.log(response)
+         return response.text();
+     }).then(res=>{
+         let s=JSON.parse(res)
+         console.log(s)
+         this.setState({
+             id:s.id
+         })
+         console.log(this.state.id)
+     }).then(()=>{this.callMatch()})
+     .catch(error=>{alert(error)});
+  }
+  callMatch(){
+    let body = {
+        rtime  : this.state.time.formatted24,
+        src    : this.state.sname,
+        dest   : this.state.dname,
+        rdate  : this.state.date,
+        cname   : name,
+        phoneNumber :ph,
+        crollno :crollno,
+        frollno:frollno,
+        tname : name,
+        cid :this.state.id
+        
+        }
+        console.log(body)
+        const url = "http://localhost:9000/match";
+      
+        let headers = new Headers();
+         headers.append('Content-Type','application/json');
+         headers.append('Accept','application/json');
+    
+          headers.append('Access-Control-Allow-origin',url);
+          headers.append('Access-Control-Allow-Credentials','true');
+  
+          headers.append('POST','GET');
+          fetch(url, {
+            headers:headers,
+            method: 'POST',
+            body: JSON.stringify(body)
+          }) .then(response => {
+            if(response.ok){
+              alert("inserted");
+              }
+            
+          })
+          .catch(error=>{alert(error)});
+      
   }
        
     
@@ -199,4 +259,4 @@ class Form1 extends Component{
         );
     }
 }
-export default Form1;
+export default Form3;

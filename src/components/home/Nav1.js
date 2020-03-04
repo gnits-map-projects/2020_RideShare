@@ -25,13 +25,13 @@ class Navigation extends Component {
       
 <Navbar bg="#1565c0" expand="md">
       
-      <Navbar.Brand href="#home"><h2 ><Link to="/Home1"><b className="heading">RIDE SHARE</b></Link></h2></Navbar.Brand>
+      <Navbar.Brand href="/details"><h2 ><Link to="/details"><b className="heading">RIDE SHARE</b></Link></h2></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav  className="mr-auto"></Nav>
           <Nav>
-          <Nav.Link href="#profile"><h5><b>PROFILE</b></h5></Nav.Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <Nav.Link href="#history"><h5><b>HISTORY</b></h5></Nav.Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Nav.Link href="/profile"><h5><b>PROFILE</b></h5></Nav.Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Nav.Link href="/history"><h5><b>HISTORY</b></h5></Nav.Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <Nav.Link href="/logout"><h5><b>LOGOUT</b></h5></Nav.Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </Nav>
        

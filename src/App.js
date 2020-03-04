@@ -13,6 +13,11 @@ import { BrowserRouter as Router,
    import About from "./components/home/about.js";
    import List from "./components/List";
    import logout from './components/home/logout';
+   import Profile from './components/Profile';
+   import Updatedetalis from './components/Updatedetails';
+   import Details from './components/details';
+   import DisHistory from './components/DisHistory'
+
 
 
 class App extends Component {
@@ -35,7 +40,11 @@ class App extends Component {
             <Route path="/about" component= { About }/>
             <Route path="/logout" component= { logout }/>
             <Route path="/list" component= { List }/>
-                </Switch>
+            <Route path="/profile" component= { Profile }/>
+            <Route path="/update" component={Updatedetalis}/>
+            <Route path="/details" component={Details}/>
+            <Route path="/history" component={DisHistory}/>
+            </Switch>
             </Router>
             </div>
         
