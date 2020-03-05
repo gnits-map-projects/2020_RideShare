@@ -42,7 +42,7 @@ public class CrideController extends Controller {
 
     public CompletionStage<Result> addCride() {
         Cride Cride=Json.fromJson(request().body().asJson(),Cride.class);
-        MatchedController mc = new MatchedController(formFactory, MatchedRepository, ec);
+        //MatchedController mc = new MatchedController(formFactory, MatchedRepository, ec);
         return CrideRepository.add(Cride).thenApplyAsync(p -> {
             return ok("Inserted");
         }, ec.current());
@@ -83,6 +83,32 @@ public class CrideController extends Controller {
 
 
 
+    }
+
+    public CompletionStage<Result> incVacancy() {
+        JsonNode j=request().body().asJson();
+        //String vacancy1 = j.get("vacancy").asText();
+       // int vacancy = Integer.parseInt(vacancy1);
+        String id1 = j.get("id").asText();
+        Long id = Long.parseLong(id1);
+        return CrideRepository.incV(id).thenApplyAsync(ps -> {
+            //return redirect(routes.PersonController.index());
+            //String s="{\"vacancy\":\""+ps.vacancy+"\"}";
+            return ok();
+        }, ec.current());
+    }
+
+    public CompletionStage<Result> decVacancy() {
+        JsonNode j=request().body().asJson();
+       // String vacancy1 = j.get("vacancy").asText();
+       // int vacancy = Integer.parseInt(vacancy1);
+        String id1 = j.get("id").asText();
+        Long id = Long.parseLong(id1);
+        return CrideRepository.decV(id).thenApplyAsync(ps -> {
+            //return redirect(routes.PersonController.index());
+            //String s="{\"vacancy\":\""+ps.vacancy+"\"}";
+            return ok();
+        }, ec.current());
     }
 
 

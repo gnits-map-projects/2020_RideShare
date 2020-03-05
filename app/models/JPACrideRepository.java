@@ -15,13 +15,14 @@ import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.lang.Exception;
 import javax.persistence.NoResultException;
+import org.hibernate.Query;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 import java.util.stream.Stream;
 /**
  * Provide JPA operations running inside of a thread pool sized to the connection pool
  */
-public  class JPACrideRepository implements CrideRepository {
+public class JPACrideRepository implements CrideRepository {
 
     private final JPAApi jpaApi;
     private final DatabaseExecutionContext executionContext;
@@ -37,6 +38,16 @@ public  class JPACrideRepository implements CrideRepository {
     @Override
     public CompletionStage<Cride> add(Cride Cride) {
         return supplyAsync(() -> wrap(em -> insert(em, Cride)), executionContext);
+    }
+
+    @Override
+    public CompletionStage<Cride> incV(Long id) {
+        return supplyAsync(() -> wrap(em -> incV(em,id)), executionContext);
+    }
+
+    @Override
+    public CompletionStage<Cride> decV(Long id) {
+        return supplyAsync(() -> wrap(em -> decV(em,id)), executionContext);
     }
     private <T> T wrap(Function<EntityManager, T> function) {
         return jpaApi.withTransaction(function);
@@ -122,8 +133,44 @@ public  class JPACrideRepository implements CrideRepository {
             return null;
         }
 
+    }
+ private int getVacancy(EntityManager em,Long id){
+     Cride cride = em.createQuery("select c from Cride c where id=:id",Cride.class).setParameter("id", id).getSingleResult();
+     return cride.vacancy;
+ }
 
+   private Cride incV(EntityManager em,Long id) {
+        int vacancy=getVacancy(em,id);
+       int i = em.createQuery("update Cride SET vacancy=:vacancy+1 where id=:id")
+               .setParameter("vacancy", vacancy)
+               .setParameter("id", id)
+               .executeUpdate();
+       //int i=q.executeUpdate();
+       if(i!=0){
+           Cride cride = em.createQuery("select c from Cride c where id=:id",Cride.class).setParameter("id", id).getSingleResult();
+           return cride;}
+       else
+       {
+           return null;
+       }
+   }
+
+    private Cride decV(EntityManager em,Long id) {
+        int vacancy=getVacancy(em,id);
+        int i = em.createQuery("update Cride SET vacancy=:vacancy-1 where id=:id")
+                .setParameter("vacancy", vacancy)
+                .setParameter("id", id)
+                .executeUpdate();
+        //int i=q.executeUpdate();
+        if(i!=0){
+            Cride cride = em.createQuery("select c from Cride c where id=:id",Cride.class).setParameter("id", id).getSingleResult();
+            return cride;}
+        else
+        {
+            return null;
+        }
     }
 
 
-    }
+
+}

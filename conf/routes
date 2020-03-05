@@ -14,9 +14,13 @@ POST    /update                     controllers.PersonController.updatePerson()
 POST    /check                      controllers.PersonController.checkRollno()
 POST    /find                       controllers.CrideController.findRide()
 POST    /history                    controllers.MatchedController.History()
-POST    /adding                       controllers.CrideController.addRide()
-POST  /match                    controllers.MatchedController.addMride()
-POST  /rideDet                  controllers.MatchedController.rideDetails()
+POST    /adding                     controllers.CrideController.addRide()
+POST  /match                        controllers.MatchedController.addMride()
+POST  /rideDet                      controllers.MatchedController.rideDetails()
+POST  /incVacancy                   controllers.CrideController.incVacancy()
+POST  /decVacancy                   controllers.CrideController.decVacancy()
+DELETE    /del                      controllers.MatchedController.deleteRide()
+POST    /checkRide                  controllers.MatchedController.checkRide()
 
 
 # Map static resources from the /public folder to the /assets URL path

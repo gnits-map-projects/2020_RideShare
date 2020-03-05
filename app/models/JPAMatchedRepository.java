@@ -109,7 +109,33 @@ public  class JPAMatchedRepository implements MatchedRepository {
 
 
     }
+    @Override
+    public Matched delete(String frollno,Long cid) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        Matched foundPerson = em.createQuery("select m from Matched m where frollno=:frollno and cid=:cid", Matched.class).setParameter("frollno", frollno).setParameter("cid", cid).getSingleResult();
+        Matched found1=foundPerson;
+       // Matched foundPerson1 = em.createQuery("select m from Matched m where id=:cid", Matched.class).setParameter("cid", cid).getSingleResult();
+        em.remove(foundPerson);
+        return found1;
 
+    }
+
+    public Matched checkRide(Long cid, String frollno) {
+        try {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+            EntityManager em = entityManagerFactory.createEntityManager();
+            em.getTransaction().begin();
+
+            Matched find= em.createQuery("select m from Matched m where cid=:cid and frollno=:frollno", Matched.class).setParameter("cid", cid).setParameter("frollno", frollno).getSingleResult();
+            return find;
+        } catch (NoResultException e) {
+            return null;
+        }
+
+
+    }
 
 
 
