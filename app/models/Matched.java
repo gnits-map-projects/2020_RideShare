@@ -18,6 +18,7 @@ public class Matched {
     public String frollno;
     public Long cid;
     public String cname;
+    public String status;
 
     public String getCname() {
         return cname;
@@ -98,5 +99,13 @@ public class Matched {
 
     public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

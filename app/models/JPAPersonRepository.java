@@ -170,6 +170,7 @@ public class JPAPersonRepository implements PersonRepository {
         //int i=q.executeUpdate();
         if(i!=0){
             Person persons = em.createQuery("select p from Person p where rollno=:rollno",Person.class).setParameter("rollno", rollno).getSingleResult();
+            em.close();
             return persons;}
         else
         {

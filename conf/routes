@@ -19,7 +19,7 @@ POST  /match                        controllers.MatchedController.addMride()
 POST  /rideDet                      controllers.MatchedController.rideDetails()
 POST  /incVacancy                   controllers.CrideController.incVacancy()
 POST  /decVacancy                   controllers.CrideController.decVacancy()
-DELETE    /del                      controllers.MatchedController.deleteRide()
+POST   /del                      controllers.MatchedController.deleteRide()
 POST    /checkRide                  controllers.MatchedController.checkRide()
 
 

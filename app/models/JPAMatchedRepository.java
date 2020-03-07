@@ -59,11 +59,12 @@ public  class JPAMatchedRepository implements MatchedRepository {
     }*/
    public Stream<Matched> History(String frollno) {
        try {
+           String status="upcoming";
            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
            EntityManager em = entityManagerFactory.createEntityManager();
            em.getTransaction().begin();
 
-           List<Matched> find= em.createQuery("select m from Matched m where frollno=:frollno", Matched.class).setParameter("frollno", frollno).getResultList();
+           List<Matched> find= em.createQuery("select m from Matched m where frollno=:frollno and status=:status", Matched.class).setParameter("frollno", frollno).setParameter("status", status).getResultList();
            return find.stream();
        } catch (NoResultException e) {
            return null;
@@ -111,14 +112,23 @@ public  class JPAMatchedRepository implements MatchedRepository {
     }
     @Override
     public Matched delete(String frollno,Long cid) {
+       String status="cancelled";
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
-        Matched foundPerson = em.createQuery("select m from Matched m where frollno=:frollno and cid=:cid", Matched.class).setParameter("frollno", frollno).setParameter("cid", cid).getSingleResult();
-        Matched found1=foundPerson;
-       // Matched foundPerson1 = em.createQuery("select m from Matched m where id=:cid", Matched.class).setParameter("cid", cid).getSingleResult();
-        em.remove(foundPerson);
-        return found1;
+        int foundPerson = em.createQuery("update Matched m set m.status=:status where m.cid=:cid and m.frollno=:frollno").setParameter("status","cancelled").setParameter("cid", cid).setParameter("frollno", frollno).executeUpdate();
+
+        if(foundPerson!=0){
+            Matched find= em.createQuery("select m from Matched m where cid=:cid and frollno=:frollno", Matched.class).setParameter("cid", cid).setParameter("frollno", "16251A1261").getSingleResult();
+            em.close();
+            return find;
+        }
+        else{
+            em.close();
+            return null;
+        }
+
+
 
     }
 
@@ -127,8 +137,8 @@ public  class JPAMatchedRepository implements MatchedRepository {
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
             EntityManager em = entityManagerFactory.createEntityManager();
             em.getTransaction().begin();
-
-            Matched find= em.createQuery("select m from Matched m where cid=:cid and frollno=:frollno", Matched.class).setParameter("cid", cid).setParameter("frollno", frollno).getSingleResult();
+            String status="upcoming";
+            Matched find= em.createQuery("select m from Matched m where cid=:cid and frollno=:frollno and status=:status", Matched.class).setParameter("cid", cid).setParameter("frollno", frollno).setParameter("status", status).getSingleResult();
             return find;
         } catch (NoResultException e) {
             return null;
