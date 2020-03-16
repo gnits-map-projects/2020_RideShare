@@ -119,7 +119,7 @@ public  class JPAMatchedRepository implements MatchedRepository {
         int foundPerson = em.createQuery("update Matched m set m.status=:status where m.cid=:cid and m.frollno=:frollno").setParameter("status","cancelled").setParameter("cid", cid).setParameter("frollno", frollno).executeUpdate();
 
         if(foundPerson!=0){
-            Matched find= em.createQuery("select m from Matched m where cid=:cid and frollno=:frollno", Matched.class).setParameter("cid", cid).setParameter("frollno", "16251A1261").getSingleResult();
+            Matched find= em.createQuery("select m from Matched m where cid=:cid and frollno=:frollno", Matched.class).setParameter("cid", cid).setParameter("frollno", "16251A05E8").getSingleResult();
             em.close();
             return find;
         }

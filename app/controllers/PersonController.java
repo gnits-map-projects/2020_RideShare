@@ -91,7 +91,7 @@ public class PersonController extends Controller {
     }
         else{
             //String s = "{\'rollno\':'+ps.rollno+'}";
-           return ok((ps.rollno));//Json.parse(s));
+           return ok(Json.toJson(ps));//Json.parse(s));
 
     }
 
@@ -108,19 +108,19 @@ public class PersonController extends Controller {
         }, ec.current());
     }*/
 
-    public Result login1() {
-        JsonNode j = request().body().asJson();
-        String rollno = j.get("rollno").asText();
-        Person ps = personRepository.login1(rollno);
+        public Result login1() {
+           JsonNode j = request().body().asJson();
+            String rollno = j.get("rollno").asText();
+           Person ps = personRepository.login1(rollno);
 
-        if (ps == null) {
-            return ok("not a valid user");
-        } else {
-            String s = "{\"email\":\"" + ps.email + "\", \"name\":\"" + ps.name + "\",\"phone\":\"" + ps.phoneNumber+ "\", \"rollno\":\"" + ps.rollno+"\" , \"age\":\"" + ps.age+"\" , \"gender\":\"" + ps.gender+"\" }";
-            return ok(s);
+           if (ps == null) {
+                return ok("not a valid user");
+            } else {
+               String s = "{\"email\":\"" + ps.email + "\", \"name\":\"" + ps.name + "\",\"phone\":\"" + ps.phoneNumber+ "\", \"rollno\":\"" + ps.rollno+"\" , \"age\":\"" + ps.age+"\" , \"gender\":\"" + ps.gender+"\" }";
+                return ok(s);
+           }
+
         }
-
-    }
 
    /* public Result update(){
         JsonNode j = request().body().asJson();

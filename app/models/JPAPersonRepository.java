@@ -48,6 +48,11 @@ public class JPAPersonRepository implements PersonRepository {
     }
 
     @Override
+    public Person login(String rollno, String pswd) {
+        return wrap(em -> findUser(em,rollno, pswd));
+    }
+
+    @Override
     public CompletionStage<Stream<Person>> list() {
         return supplyAsync(() -> wrap(em -> list(em)), executionContext);
     }
@@ -73,39 +78,46 @@ public class JPAPersonRepository implements PersonRepository {
 
     }
 
-    @Override
-    public Person login(String rollno, String pswd) {
-        try {
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
-            EntityManager em = entityManagerFactory.createEntityManager();
-            em.getTransaction().begin();
-
-            Person foundPerson = em.createQuery("select p from Person p where rollno=:rollno and pswd=:pswd", Person.class).setParameter("rollno", rollno).setParameter("pswd", pswd).getSingleResult();
-            //em.remove(foundPerson);
-            return foundPerson;
-        } catch (NoResultException e) {
-            return null;
-        }
-
-
+    private Person findUser(EntityManager em, String rollNumber, String password) {
+        Person person = em.createQuery("select p from Person p where rollno=:rollNumber and pswd=:password", Person.class).setParameter("rollNumber", rollNumber).setParameter("password", password).getSingleResult();
+        return person;
     }
 
-    public Person login1(String rollno) {
-        try {
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
-            EntityManager em = entityManagerFactory.createEntityManager();
-            em.getTransaction().begin();
+//    @Override
+//    public Person login(String rollno, String pswd) {
+//        try {
+//            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+//            EntityManager em = entityManagerFactory.createEntityManager();
+//            em.getTransaction().begin();
+//
+//            Person foundPerson = em.createQuery("select p from Person p where rollno=:rollno and pswd=:pswd", Person.class).setParameter("rollno", rollno).setParameter("pswd", pswd).getSingleResult();
+//            //em.remove(foundPerson);
+//            return foundPerson;
+//        } catch (NoResultException e) {
+//            return null;
+//        }
+//
+//
+//    }
 
-            Person PersonProfile = em.createQuery("select p from Person p where rollno=:rollno", Person.class).setParameter("rollno", rollno).getSingleResult();
-            //em.remove(foundPerson);getSingleResult();
-            //em.remove(foundPerson);
-            return PersonProfile;
-        } catch (NoResultException e) {
-            return null;
+
+
+       public Person login1(String rollno) {
+           try {
+                EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+                EntityManager em = entityManagerFactory.createEntityManager();
+               em.getTransaction().begin();
+
+               Person PersonProfile = em.createQuery("select p from Person p where rollno=:rollno", Person.class).setParameter("rollno", rollno).getSingleResult();
+                //em.remove(foundPerson);getSingleResult();
+               //em.remove(foundPerson);
+                return PersonProfile;
+           } catch (NoResultException e) {
+                return null;
+            }
+
+
         }
-
-
-    }
 
     /*public String update(String rollno, String name, String email, int age, Long phoneNumber, String gender, String pswd) {
         try {

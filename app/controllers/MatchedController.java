@@ -83,7 +83,7 @@ public class MatchedController extends Controller {
         String frollno = json.get("frollno").asText();
         String cid1 = json.get("cid").asText();
         Long cid = Long.parseLong(cid1);
-       Matched m = MatchedRepository.delete(frollno,cid);
+        Matched m = MatchedRepository.delete(frollno,cid);
        CrideController c= new CrideController(formFactory, CrideRepository,MatchedRepository, ec);
        if(m==null){
            return badRequest("not deleted");
